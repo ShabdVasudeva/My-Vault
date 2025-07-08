@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+              android:layout_height="68dp"
+              android:orientation="horizontal"
+              android:background="?colorSurfaceContainerLow"
+              android:elevation="6dp">
+
+    <LinearLayout
+            android:id="@+id/navKey"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?colorSurfaceContainerLow">
+
+        <ImageView
+                android:id="@+id/iconKey"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/passwords"
+                android:src="@drawable/password_outlined"
+                app:tint="?colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/navLink"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?colorSurfaceContainerLow">
+
+        <ImageView
+                android:id="@+id/iconLink"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/link_outlined"
+                android:contentDescription="@string/links"
+                app:tint="?colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/navSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?colorSurfaceContainerLow">
+
+        <ImageView
+                android:id="@+id/iconSettings"
+                android:layout_width="24dp"
+                android:contentDescription="@string/settings"
+                android:layout_height="24dp"
+                android:src="@drawable/settings_outlined"
+                app:tint="?colorPrimary" />
+    </LinearLayout>
+
+</LinearLayout>
