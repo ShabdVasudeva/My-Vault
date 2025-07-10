@@ -9,17 +9,14 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import apw.android.myvault.R;
+import apw.android.myvault.enums.Tab;
 
 import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
 
 public class BottomAppBar extends LinearLayout {
     private ImageView iconKey, iconLink, iconSettings;
     private LinearLayout navKey, navLink, navSettings;
-    public enum Tab{
-        PASSWORD,
-        SETTINGS,
-        LINKS
-    }
+
     public BottomAppBar(Context context) {
         super(context);
         init(context);
