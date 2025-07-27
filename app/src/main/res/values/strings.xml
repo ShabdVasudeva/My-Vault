@@ -51,4 +51,11 @@
     <string name="passwords">passwords</string>
     <string name="links">links</string>
     <string name="settings">settings</string>
+    <string name="url">url</string>
+    <string name="nothing">NULL</string>
+    <string name="save">Save</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="add_link">Add Link</string>
 </resources>

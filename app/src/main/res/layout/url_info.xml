@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:padding="24dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/dialog_background"
+              android:gravity="center_horizontal">
+
+    <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="URL Details"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"/>
+
+    <TextView
+            android:id="@+id/readonlyUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textIsSelectable="true"
+            android:longClickable="true"
+            android:scrollHorizontally="false"
+            android:ellipsize="none"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="4dp"
+    />
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingTop="16dp">
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/openLinkBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Open"
+                style="@style/Widget.Material3.Button"
+                app:backgroundTint="?colorPrimary"
+                android:textColor="@android:color/white"
+                app:cornerRadius="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/copyUrl"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Copy"
+                android:layout_marginStart="8dp"
+                style="@style/Widget.Material3.Button"
+                app:backgroundTint="?colorPrimary"
+                android:textColor="@android:color/white"
+                app:cornerRadius="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:layout_marginStart="8dp"
+                style="@style/Widget.Material3.Button"
+                android:maxLines="1"
+                app:backgroundTint="?colorPrimary"
+                android:textColor="@android:color/white"
+                app:cornerRadius="16dp"/>
+    </LinearLayout>
+
+</LinearLayout>

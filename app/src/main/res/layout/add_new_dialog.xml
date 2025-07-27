@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:padding="24dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/dialog_background"
+              android:gravity="center_horizontal">
+
+    <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"/>
+
+    <!-- URL -->
+    <EditText
+            android:id="@+id/input_url"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            android:inputType="textUri"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            style="@style/Widget.Material3.Button"
+            app:backgroundTint="?colorPrimary"
+            android:textColor="@android:color/white"
+            app:cornerRadius="16dp"/>
+</LinearLayout>

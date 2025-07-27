@@ -1,8 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MyVault" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">?colorPrimary</item>
+        <item name="colorOnPrimary">?colorOnPrimary</item>
+        <item name="colorSecondary">?colorSecondary</item>
+        <item name="colorSurface">?colorSurface</item>
+        <item name="colorOnSurface">?colorOnSurface</item>
     </style>
 
     <style name="Theme.MyVault" parent="Base.Theme.MyVault" />

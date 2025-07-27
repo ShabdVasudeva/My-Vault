@@ -41,7 +41,7 @@ public class TopAppBar extends MaterialToolbar {
         });
     }
 
-    protected void setAddClickButtonListener(OnAddClickListener mListener){
+    public void setAddClickButtonListener(OnAddClickListener mListener){
         this.mListener = mListener;
     }
 

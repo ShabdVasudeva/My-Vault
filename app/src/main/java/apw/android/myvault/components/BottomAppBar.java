@@ -17,6 +17,8 @@ public class BottomAppBar extends LinearLayout {
     private ImageView iconKey, iconLink, iconSettings;
     private LinearLayout navKey, navLink, navSettings;
 
+    public Tab currentField;
+
     public BottomAppBar(Context context) {
         super(context);
         init(context);
@@ -49,6 +51,24 @@ public class BottomAppBar extends LinearLayout {
         iconLink.setImageDrawable(linkDrawable);
         iconKey.setImageDrawable(keyDrawable);
         iconSettings.setImageDrawable(settingsDrawable);
+        switch (field) {
+            case PASSWORD -> {
+                currentField = Tab.PASSWORD;
+            }
+            case LINKS -> {
+                currentField = Tab.LINKS;
+            }
+            case SETTINGS -> {
+                currentField = Tab.SETTINGS;
+            }
+            default -> {
+                currentField = null;
+            }
+        }
+    }
+
+    public Tab getCurrentField() {
+        return currentField;
     }
     public LinearLayout getNavKey() {
         return navKey;

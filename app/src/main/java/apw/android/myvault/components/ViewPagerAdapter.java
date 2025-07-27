@@ -11,6 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
+    private final PasswordsFragment passwordsFragment = new PasswordsFragment();
+    private final LinksFragment linksFragment = new LinksFragment();
+    private final SettingsFragment settingsFragment = new SettingsFragment();
+
     public ViewPagerAdapter(@NonNull @NotNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -20,15 +24,19 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int i) {
         return switch (i) {
-            case 0 -> new PasswordsFragment();
-            case 1 -> new LinksFragment();
-            case 2 -> new SettingsFragment();
-            default -> new PasswordsFragment();
+            case 0 -> passwordsFragment;
+            case 1 -> linksFragment;
+            case 2 -> settingsFragment;
+            default -> passwordsFragment;
         };
     }
 
     @Override
     public int getItemCount() {
         return 3;
+    }
+
+    public LinksFragment getLinksFragment() {
+        return linksFragment;
     }
 }

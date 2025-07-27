@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "apw.android.myvault"
-        minSdk 21
+        minSdk 23
         targetSdk 35
         versionCode 1
         versionName "1.1.0 Alpha"
@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
     implementation libs.constraintlayout
