@@ -18,7 +18,30 @@
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"/>
 
-    <!-- URL -->
+    <EditText
+            android:id="@+id/input_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:visibility="gone"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            android:inputType="textUri"/>
+
+    <EditText
+            android:id="@+id/input_username"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:visibility="gone"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            android:inputType="textUri"/>
+
     <EditText
             android:id="@+id/input_url"
             android:layout_width="match_parent"

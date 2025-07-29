@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import apw.android.myvault.CryptoUtil;
 import apw.android.myvault.enums.LinkEntry;
-
 import java.util.ArrayList;
 import java.util.List;
 

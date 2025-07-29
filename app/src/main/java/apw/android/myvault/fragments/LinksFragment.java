@@ -1,17 +1,13 @@
 package apw.android.myvault.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -28,6 +24,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
+
+import static android.view.View.GONE;
 
 public class LinksFragment extends Fragment {
 
@@ -92,9 +90,13 @@ public class LinksFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         bottomSheetDialog.setContentView(view);
         TextView url = view.findViewById(R.id.readonlyUrl);
+        TextView dialogTitle = view.findViewById(R.id.dialog_title);
+        TextView username = view.findViewById(R.id.readonlyUsername);
+        username.setVisibility(GONE);
         MaterialButton delete = view.findViewById(R.id.deleteBtn);
         MaterialButton openUrl = view.findViewById(R.id.openLinkBtn);
         MaterialButton copyUrl = view.findViewById(R.id.copyUrl);
+        dialogTitle.setText("URL Details");
         delete.setOnClickListener(v -> {
             LinksDAO dao = new LinksDAO(view.getContext());
             dao.removeEncryptedLink(link.getID());

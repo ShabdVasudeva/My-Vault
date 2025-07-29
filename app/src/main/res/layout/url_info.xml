@@ -14,10 +14,27 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="URL Details"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"/>
+
+    <TextView
+            android:id="@+id/readonlyUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textIsSelectable="true"
+            android:longClickable="true"
+            android:scrollHorizontally="false"
+            android:ellipsize="none"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="4dp"
+    />
 
     <TextView
             android:id="@+id/readonlyUrl"

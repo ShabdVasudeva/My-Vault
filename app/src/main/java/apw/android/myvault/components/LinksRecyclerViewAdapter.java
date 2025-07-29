@@ -2,18 +2,13 @@ package apw.android.myvault.components;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 import apw.android.myvault.R;
-import apw.android.myvault.database.LinksDAO;
 import apw.android.myvault.enums.LinkEntry;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;

@@ -39,4 +39,5 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public LinksFragment getLinksFragment() {
         return linksFragment;
     }
+    public PasswordsFragment getPasswordsFragment() { return passwordsFragment; }
 }
