@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                                      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+            android:key="passwords"
+            android:title="passwords">
+        <androidx.preference.ListPreference
+                android:key="password_order"
+                android:title="Sort passwords by"
+                android:summary="Choose how passwords should be sorted"
+                android:entries="@array/sort_order_entries"
+                android:entryValues="@array/sort_order_values"
+                android:defaultValue="newer" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="links"
+            android:title="links">
+        <androidx.preference.ListPreference
+                android:key="links_order"
+                android:title="Sort links by"
+                android:summary="Choose how links should be sorted"
+                android:entries="@array/sort_order_entries"
+                android:entryValues="@array/sort_order_values"
+                android:defaultValue="newer" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="about"
+            android:title="About">
+
+        <androidx.preference.Preference
+                android:key="app_version"
+                android:title="App version"
+                android:summary="1.1.0 Alpha" />
+
+        <androidx.preference.Preference
+                android:key="dev_name"
+                android:title="Shabd vasudeva"
+                android:summary="Application developer" />
+
+        <androidx.preference.Preference
+                android:key="source_code"
+                android:title="Source code"
+                android:summary="source code of this app is available on our github page have a visit there by simply clicking here." />
+
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

@@ -3,8 +3,10 @@ package apw.android.myvault.components;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 import apw.android.myvault.R;
+import apw.android.myvault.enums.Tab;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class TopAppBar extends MaterialToolbar {
@@ -45,4 +47,12 @@ public class TopAppBar extends MaterialToolbar {
         this.mListener = mListener;
     }
 
+    public void updateAddButtonVisibility(Tab currentTab) {
+        View addButton = findViewById(R.id.add_btn);
+        if (currentTab == Tab.SETTINGS) {
+            addButton.setVisibility(View.GONE);
+        } else {
+            addButton.setVisibility(View.VISIBLE);
+        }
+    }
 }

@@ -12,6 +12,8 @@ public class PasswordsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_TITLE = "TITLE";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
+
+    public static final String DATE = "ADDED_ON";
     public static final String COLUMN_ID = "ID";
     public PasswordsDatabase(@NonNull Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -23,7 +25,9 @@ public class PasswordsDatabase extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
                 USERNAME + " TEXT, " +
-                PASSWORD + " TEXT" + ");");
+                PASSWORD + " TEXT," +
+                DATE + " DATE" +
+                ");");
     }
 
     @Override

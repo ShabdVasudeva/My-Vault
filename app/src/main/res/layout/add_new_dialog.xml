@@ -53,13 +53,12 @@
             android:layout_marginBottom="5dp"
             android:inputType="textUri"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save"
-            style="@style/Widget.Material3.Button"
-            app:backgroundTint="?colorPrimary"
-            android:textColor="@android:color/white"
-            app:cornerRadius="16dp"/>
+            android:contentDescription="@string/save"
+            android:gravity="center"
+            android:text="@string/save" />
+
 </LinearLayout>

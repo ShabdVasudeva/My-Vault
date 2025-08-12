@@ -1,10 +1,7 @@
 package apw.android.myvault.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
@@ -14,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import apw.android.myvault.R;
 import apw.android.myvault.components.LinksRecyclerViewAdapter;
 import apw.android.myvault.database.LinksDAO;
@@ -24,8 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
-
-import static android.view.View.GONE;
 
 public class LinksFragment extends Fragment {
 
@@ -56,8 +53,27 @@ public class LinksFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerView.setAdapter(adapter);
         LinksDAO dao = new LinksDAO(requireContext());
-        List<LinkEntry> links = dao.getUrlList();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        String sortOrder = prefs.getString("links_order", "newer");
+        List<LinkEntry> links = dao.getUrlList(sortOrder);
         adapter.setLinksList(links);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                toggleEmptyView();
+            }
+        });
+    }
+
+    private void toggleEmptyView() {
+        if (adapter.getItemCount() == 0 || adapter.getItemCount() == -1) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.setVisibility(View.VISIBLE);
+        } else {
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.notFound.setVisibility(View.GONE);
+        }
     }
 
     private void showPopupMenu(View view, LinkEntry link) {
@@ -92,7 +108,7 @@ public class LinksFragment extends Fragment {
         TextView url = view.findViewById(R.id.readonlyUrl);
         TextView dialogTitle = view.findViewById(R.id.dialog_title);
         TextView username = view.findViewById(R.id.readonlyUsername);
-        username.setVisibility(GONE);
+        username.setVisibility(View.GONE);
         MaterialButton delete = view.findViewById(R.id.deleteBtn);
         MaterialButton openUrl = view.findViewById(R.id.openLinkBtn);
         MaterialButton copyUrl = view.findViewById(R.id.copyUrl);
@@ -112,7 +128,7 @@ public class LinksFragment extends Fragment {
                 }
                 Toast.makeText(requireContext(), "URL copied to clipboard", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "An error occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });
         openUrl.setOnClickListener(v -> {
@@ -126,7 +142,9 @@ public class LinksFragment extends Fragment {
 
     public void refresh() {
         LinksDAO dao = new LinksDAO(requireContext());
-        List<LinkEntry> updatedLinks = dao.getUrlList();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        String sortOrder = prefs.getString("links_order", "newer");
+        List<LinkEntry> updatedLinks = dao.getUrlList(sortOrder);
         adapter.setLinksList(updatedLinks);
     }
 

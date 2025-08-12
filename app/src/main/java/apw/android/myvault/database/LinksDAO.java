@@ -16,12 +16,13 @@ public class LinksDAO {
         this.db = new LinksDatabase(context);
     }
 
-    public void insertEncryptedLink(String url, String date){
+    public void insertEncryptedLink(String url){
+        String current_date = DateTimeUtil.getCurrentDateTimeForSQL();
         String encryptedLink = CryptoUtil.encrypt(url);
         SQLiteDatabase database = db.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(LinksDatabase.COLUMN_NAME, encryptedLink);
-        values.put(LinksDatabase.COLUMN_DATE, date);
+        values.put(LinksDatabase.COLUMN_DATE, current_date);
         database.insert(LinksDatabase.TABLE_NAME, null, values);
         database.close();
     }
@@ -32,10 +33,16 @@ public class LinksDAO {
         databse.close();
     }
 
-    public List<LinkEntry> getUrlList(){
+    public List<LinkEntry> getUrlList(String sortOrder){
         List<LinkEntry> list = new ArrayList<>();
         SQLiteDatabase database = db.getReadableDatabase();
-        Cursor cursor = database.query(LinksDatabase.TABLE_NAME, null, null, null, null, null, null);
+        String orderBy;
+        if ("newer".equals(sortOrder)) {
+            orderBy = LinksDatabase.COLUMN_DATE + " DESC";
+        } else {
+            orderBy = LinksDatabase.COLUMN_DATE + " ASC";
+        }
+        Cursor cursor = database.query(LinksDatabase.TABLE_NAME, null, null, null, null, null, orderBy);
         while (cursor.moveToNext()){
             String encrypted = cursor.getString(cursor.getColumnIndexOrThrow(LinksDatabase.COLUMN_NAME));
             String decrypted = CryptoUtil.decrypt(encrypted);

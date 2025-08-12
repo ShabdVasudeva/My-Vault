@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_order_entries">
+        <item>Newer to Older</item>
+        <item>Older to Newer</item>
+    </string-array>
+
+    <string-array name="sort_order_values">
+        <item>newer</item>
+        <item>older</item>
+    </string-array>
+</resources>

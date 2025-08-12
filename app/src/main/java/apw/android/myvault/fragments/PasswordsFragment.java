@@ -1,10 +1,7 @@
 package apw.android.myvault.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
@@ -14,15 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import apw.android.myvault.R;
-import apw.android.myvault.components.LinksRecyclerViewAdapter;
 import apw.android.myvault.components.PasswordsRecyclerViewAdapter;
-import apw.android.myvault.database.LinksDAO;
 import apw.android.myvault.database.PasswordsDAO;
-import apw.android.myvault.databinding.LinksFragmentBinding;
 import apw.android.myvault.databinding.PasswordsFragmentBinding;
-import apw.android.myvault.enums.LinkEntry;
 import apw.android.myvault.enums.PasswordEntry;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -60,10 +55,19 @@ public class PasswordsFragment extends Fragment {
                 showPopupMenu(view, password);
             }
         });
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                toggleEmptyView();
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerView.setAdapter(adapter);
         PasswordsDAO dao = new PasswordsDAO(requireContext());
-        List<PasswordEntry> passwords = dao.getPasswords();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        String sortOrder = prefs.getString("password_order", "newer");
+        List<PasswordEntry> passwords = dao.getPasswords(sortOrder);
         adapter.setPasswordsList(passwords);
     }
 
@@ -101,7 +105,6 @@ public class PasswordsFragment extends Fragment {
         TextView username = view.findViewById(R.id.readonlyUsername);
         username.setVisibility(View.VISIBLE);
         MaterialButton delete = view.findViewById(R.id.deleteBtn);
-        MaterialButton openUrl = view.findViewById(R.id.openLinkBtn);
         MaterialButton copyUrl = view.findViewById(R.id.copyUrl);
         dialogTitle.setText("Password Details");
         delete.setOnClickListener(v -> {
@@ -119,7 +122,7 @@ public class PasswordsFragment extends Fragment {
                 }
                 Toast.makeText(requireContext(), "Password copied to clipboard", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "An error occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });
         username.setText(passwordEntry.getUSERNAME());
@@ -129,8 +132,20 @@ public class PasswordsFragment extends Fragment {
 
     public void refresh() {
         PasswordsDAO dao = new PasswordsDAO(requireContext());
-        List<PasswordEntry> updatedLinks = dao.getPasswords();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        String sortOrder = prefs.getString("password_order", "newer");
+        List<PasswordEntry> updatedLinks = dao.getPasswords(sortOrder);
         adapter.setPasswordsList(updatedLinks);
+    }
+
+    private void toggleEmptyView() {
+        if (adapter.getItemCount() == 0 || adapter.getItemCount() == -1) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.setVisibility(View.VISIBLE);
+        } else {
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.notFound.setVisibility(View.GONE);
+        }
     }
 
     @Override

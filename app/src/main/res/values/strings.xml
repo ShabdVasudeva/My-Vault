@@ -58,4 +58,5 @@
     <string name="description">Description</string>
     <string name="title">Title</string>
     <string name="add_link">Add Link</string>
+    <string name="no_data_found">No data found</string>
 </resources>

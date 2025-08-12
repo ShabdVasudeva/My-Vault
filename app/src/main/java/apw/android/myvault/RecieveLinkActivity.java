@@ -19,7 +19,7 @@ public class RecieveLinkActivity extends AppCompatActivity {
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (sharedText != null && sharedText.contains("http")) {
                 LinksDAO dao = new LinksDAO(this);
-                dao.insertEncryptedLink(sharedText, getCurrentTime());
+                dao.insertEncryptedLink(sharedText);
             }
         }
         finish();

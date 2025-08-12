@@ -24,7 +24,7 @@ public class LinksDatabase extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
-                COLUMN_DATE + " TEXT" +
+                COLUMN_DATE + " DATE" +
                 ");");
     }
 

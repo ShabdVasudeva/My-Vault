@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
 import androidx.annotation.Nullable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import apw.android.myvault.components.ViewPagerAdapter;
 import apw.android.myvault.database.LinksDAO;
 import apw.android.myvault.database.PasswordsDAO;
 import apw.android.myvault.databinding.ActivityMainBinding;
 import apw.android.myvault.enums.Tab;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SavePasswordRequest;
+import com.google.android.gms.auth.api.identity.SignInPassword;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQ_SAVE_PASSWORD = 1000;
     private ActivityMainBinding binding;
     private static final int REQUEST_CODE_AUTHENTICATION = 1001;
     private ViewPagerAdapter adapter;
@@ -41,15 +48,17 @@ public class MainActivity extends AppCompatActivity {
         binding.viewPager.setUserInputEnabled(false);
         binding.bottomLayout.selectTab(Tab.LINKS);
         binding.viewPager.setCurrentItem(1);
+        binding.toolbar.updateAddButtonVisibility(Tab.LINKS);
         binding.bottomLayout.getNavKey().setOnClickListener(v -> authenticateWithKeyguard());
         binding.bottomLayout.getNavLink().setOnClickListener(v -> {
             binding.viewPager.setCurrentItem(1);
             binding.bottomLayout.selectTab(Tab.LINKS);
+            binding.toolbar.updateAddButtonVisibility(Tab.LINKS);
         });
         binding.bottomLayout.getNavSettings().setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "Settings selected", Toast.LENGTH_SHORT).show();
             binding.viewPager.setCurrentItem(2);
             binding.bottomLayout.selectTab(Tab.SETTINGS);
+            binding.toolbar.updateAddButtonVisibility(Tab.SETTINGS);
         });
         binding.toolbar.setAddClickButtonListener(() -> showAddBottomSheet(this, binding.bottomLayout.getCurrentField()));
     }
@@ -77,10 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Authentication Successful", Toast.LENGTH_SHORT).show();
                 binding.viewPager.setCurrentItem(0);
                 binding.bottomLayout.selectTab(Tab.PASSWORD);
+                binding.toolbar.updateAddButtonVisibility(Tab.PASSWORD);
             } else {
                 Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 binding.viewPager.setCurrentItem(1);
                 binding.bottomLayout.selectTab(Tab.LINKS);
+                binding.toolbar.updateAddButtonVisibility(Tab.LINKS);
             }
         }
     }
@@ -108,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     String url = input.getText().toString().trim();
                     if (!url.isEmpty()) {
                         LinksDAO dao = new LinksDAO(context);
-                        dao.insertEncryptedLink(url, getCurrentTime());
+                        dao.insertEncryptedLink(url);
                         adapter.getLinksFragment().refresh();
                         bottomSheetDialog.dismiss();
                     } else {
@@ -133,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(context, "An error occured...", Toast.LENGTH_SHORT).show();
                     }
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 });
             }
         }

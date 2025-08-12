@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 import apw.android.myvault.CryptoUtil;
 import apw.android.myvault.enums.PasswordEntry;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +18,14 @@ public class PasswordsDAO {
     }
 
     public void insertEncryptedPassword(String title, String username, String password) {
+        String current_date = DateTimeUtil.getCurrentDateTimeForSQL();
         SQLiteDatabase db = database.getWritableDatabase();
         String encryptedPassword = CryptoUtil.encrypt(password);
         ContentValues values = new ContentValues();
         values.put(PasswordsDatabase.COLUMN_TITLE, title);
         values.put(PasswordsDatabase.USERNAME, username);
         values.put(PasswordsDatabase.PASSWORD, encryptedPassword);
+        values.put(PasswordsDatabase.DATE, current_date);
         db.insert(PasswordsDatabase.TABLE_NAME, null, values);
         db.close();
     }
@@ -35,10 +36,16 @@ public class PasswordsDAO {
         db.close();
     }
 
-    public List<PasswordEntry> getPasswords(){
+    public List<PasswordEntry> getPasswords(String sortOrder){
         List<PasswordEntry> passwords = new ArrayList<>();
         SQLiteDatabase db = database.getReadableDatabase();
-        Cursor cursor = db.query(PasswordsDatabase.TABLE_NAME, null, null, null, null, null, null);
+        String orderBy;
+        if ("newer".equals(sortOrder)) {
+            orderBy = PasswordsDatabase.DATE + " DESC";
+        } else {
+            orderBy = PasswordsDatabase.DATE + " ASC";
+        }
+        Cursor cursor = db.query(PasswordsDatabase.TABLE_NAME, null, null, null, null, null, orderBy);
         while (cursor.moveToNext()) {
             String encryptedPassword = cursor.getString(cursor.getColumnIndexOrThrow(PasswordsDatabase.PASSWORD));
             String password = CryptoUtil.decrypt(encryptedPassword);
