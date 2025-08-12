@@ -2,7 +2,6 @@ package apw.android.myvault.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.*;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
@@ -75,15 +74,11 @@ public class PasswordsFragment extends Fragment {
         Context context = requireContext();
         PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.link_popup_menu, popup.getMenu());
+        inflater.inflate(R.menu.password_popup, popup.getMenu());
 
         popup.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_open) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(passwordEntry.getPASSWORD()));
-                context.startActivity(intent);
-                return true;
-            } else if (id == R.id.menu_delete) {
+            if (id == R.id.menu_delete) {
                 PasswordsDAO dao = new PasswordsDAO(view.getContext());
                 dao.removeEncryptedPassword(passwordEntry.getID());
                 refresh();
@@ -105,7 +100,9 @@ public class PasswordsFragment extends Fragment {
         TextView username = view.findViewById(R.id.readonlyUsername);
         username.setVisibility(View.VISIBLE);
         MaterialButton delete = view.findViewById(R.id.deleteBtn);
-        MaterialButton copyUrl = view.findViewById(R.id.copyUrl);
+        MaterialButton copy = view.findViewById(R.id.copyUrl);
+        MaterialButton openUrl = view.findViewById(R.id.openLinkBtn);
+        openUrl.setVisibility(View.GONE);
         dialogTitle.setText("Password Details");
         delete.setOnClickListener(v -> {
             PasswordsDAO dao = new PasswordsDAO(view.getContext());
@@ -113,7 +110,7 @@ public class PasswordsFragment extends Fragment {
             refresh();
             bottomSheetDialog.dismiss();
         });
-        copyUrl.setOnClickListener(v -> {
+        copy.setOnClickListener(v -> {
             try {
                 ClipboardManager clipBoard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText(passwordEntry.getTITLE(), passwordEntry.getPASSWORD());
